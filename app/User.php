@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Staff::class, 'users_id', 'id');
     }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, 'users_id', 'id');
+    }
 }

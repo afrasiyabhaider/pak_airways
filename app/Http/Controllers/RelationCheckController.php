@@ -11,18 +11,21 @@ class RelationCheckController extends Controller
     {
         $all_user = User::get();
 
-        // dd($all_user);
+        //dd($all_user);
 
         /**
          *  Get Staffs Data via Users
          * 
          */
-        $user = User::find(3);
+        //$user = User::find(3);
         // dd($user->staff()->first());
 
         /**
          *  Get Customer Data via Users
          * 
          */
+        $user = User::find(10);
+        dd($user->customer()->first());
+
     }
 }

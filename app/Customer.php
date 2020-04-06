@@ -13,12 +13,11 @@ class Customer extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'users_id', 'id');
+        return $this->hasOne(User::class, 'id', 'users_id');
     }
 
     public function  customer_flight()
     {
-
         return $this->hasMany(CustomerFlight::class, 'customers_id', 'id');
     }
 }

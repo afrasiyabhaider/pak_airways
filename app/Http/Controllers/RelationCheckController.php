@@ -29,8 +29,13 @@ class RelationCheckController extends Controller
         // $user = User::find(10);
         // dd($user->customer()->first());
         // Users via customer
-        //   $customer = Customer::find(10);
+          $customer = Customer::find(5);
+        //   dd($customer); 
         //   dd($customer->user()->first());
+        //   dd($customer->customer_flight()->first());
+
+        $flight = CustomerFlight::find(1);
+        dd($flight->customer()->first());
 
         /**
          * 

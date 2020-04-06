@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2020 at 01:18 PM
+-- Generation Time: Apr 06, 2020 at 06:00 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -54,6 +54,35 @@ INSERT INTO `customers` (`id`, `users_id`, `passport_no`, `city`, `created_at`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `customer_flights`
+--
+
+CREATE TABLE `customer_flights` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `customers_id` bigint(20) UNSIGNED NOT NULL,
+  `flight_no` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `departure_time` time NOT NULL,
+  `arrival_time` time NOT NULL,
+  `from` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `to` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_of_passenger` int(11) NOT NULL,
+  `total_price` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customer_flights`
+--
+
+INSERT INTO `customer_flights` (`id`, `customers_id`, `flight_no`, `departure_time`, `arrival_time`, `from`, `to`, `no_of_passenger`, `total_price`, `created_at`, `updated_at`) VALUES
+(1, 5, 'PK-3', '07:59:15', '06:06:04', 'Ornton', 'Orlandoport', 1, 300, NULL, NULL),
+(2, 4, 'PK-5', '09:04:56', '05:28:11', 'Rosamondberg', 'Kshlerinbury', 2, 300, NULL, NULL),
+(3, 6, 'PK-3', '20:40:09', '19:11:05', 'Pasqualeshire', 'Shanahanside', 2, 200, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -65,6 +94,33 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flight_seats`
+--
+
+CREATE TABLE `flight_seats` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `customer_flights_id` bigint(20) UNSIGNED NOT NULL,
+  `seat_no` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `singleseat_price` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `flight_seats`
+--
+
+INSERT INTO `flight_seats` (`id`, `customer_flights_id`, `seat_no`, `singleseat_price`, `created_at`, `updated_at`) VALUES
+(1, 1, 'PK-1', 300, NULL, NULL),
+(2, 3, 'PK-2', 300, NULL, NULL),
+(3, 2, 'PK-1', 100, NULL, NULL),
+(4, 3, 'PK-6', 200, NULL, NULL),
+(5, 2, 'PK-1', 200, NULL, NULL),
+(6, 1, 'PK-1', 100, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -86,7 +142,74 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2019_08_19_000000_create_failed_jobs_table', 1),
 (3, '2020_03_23_162130_create_staff_table', 1),
-(5, '2020_03_24_105918_create_customers_table', 2);
+(5, '2020_03_24_105918_create_customers_table', 2),
+(6, '2020_03_24_172246_create_customer_flights_table', 3),
+(7, '2020_03_30_112730_create_flight_seats_table', 4),
+(8, '2020_03_30_114935_create_packages_table', 5),
+(9, '2020_03_30_120935_create_package_items_table', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `packages`
+--
+
+CREATE TABLE `packages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type` enum('Umrah','Hajj') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descrip[tion` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `packages`
+--
+
+INSERT INTO `packages` (`id`, `type`, `descrip[tion`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Hajj', 'Detail of the Packages of hajj and umrah discount offer', NULL, NULL, NULL),
+(2, 'Hajj', 'Detail of the Packages of hajj and umrah from & to offer', NULL, NULL, NULL),
+(3, 'Umrah', 'Detail of the Packages of hajj and umrah from & to offer', NULL, NULL, NULL),
+(4, 'Hajj', 'Detail of the Packages of hajj and umrah discount offer', NULL, NULL, NULL),
+(5, 'Hajj', 'Detail of the Packages of hajj and umrah discount offer', NULL, NULL, NULL),
+(6, 'Hajj', 'Detail of the Packages of hajj and umrah from & to offer', NULL, NULL, NULL),
+(7, 'Umrah', 'Detail of the Packages of hajj and umrah discount offer', NULL, NULL, NULL),
+(8, 'Umrah', 'Detail of the Packages of hajj and umrah from & to offer', NULL, NULL, NULL),
+(9, 'Umrah', 'Detail of the Packages of hajj and umrah discount offer', NULL, NULL, NULL),
+(10, 'Hajj', 'Detail of the Packages of hajj and umrah from & to offer', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `package_items`
+--
+
+CREATE TABLE `package_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `packages_id` bigint(20) UNSIGNED NOT NULL,
+  `price` int(11) NOT NULL,
+  `from` date NOT NULL,
+  `to` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `package_items`
+--
+
+INSERT INTO `package_items` (`id`, `packages_id`, `price`, `from`, `to`, `created_at`, `updated_at`) VALUES
+(1, 2, 30000, '2014-04-01', '2002-01-27', NULL, NULL),
+(2, 4, 30000, '2015-09-28', '1985-01-22', NULL, NULL),
+(3, 8, 30000, '1982-05-15', '2002-09-02', NULL, NULL),
+(4, 10, 20000, '2009-01-31', '2019-12-23', NULL, NULL),
+(5, 7, 65000, '1983-04-15', '2005-01-05', NULL, NULL),
+(6, 3, 30000, '1979-03-30', '1987-04-29', NULL, NULL),
+(7, 5, 65000, '2014-01-11', '1977-03-18', NULL, NULL),
+(8, 9, 30000, '1985-10-15', '2018-04-11', NULL, NULL),
+(9, 1, 20000, '1986-12-31', '1997-11-11', NULL, NULL),
+(10, 6, 30000, '1985-04-06', '2010-06-27', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -164,16 +287,43 @@ ALTER TABLE `customers`
   ADD KEY `customers_users_id_foreign` (`users_id`);
 
 --
+-- Indexes for table `customer_flights`
+--
+ALTER TABLE `customer_flights`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer_flights_customers_id_foreign` (`customers_id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `flight_seats`
+--
+ALTER TABLE `flight_seats`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `flight_seats_customer_flights_id_foreign` (`customer_flights_id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `packages`
+--
+ALTER TABLE `packages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `package_items`
+--
+ALTER TABLE `package_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `package_items_packages_id_foreign` (`packages_id`);
 
 --
 -- Indexes for table `staffs`
@@ -203,16 +353,40 @@ ALTER TABLE `customers`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `customer_flights`
+--
+ALTER TABLE `customer_flights`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `flight_seats`
+--
+ALTER TABLE `flight_seats`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `packages`
+--
+ALTER TABLE `packages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `package_items`
+--
+ALTER TABLE `package_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `staffs`
@@ -235,6 +409,24 @@ ALTER TABLE `users`
 --
 ALTER TABLE `customers`
   ADD CONSTRAINT `customers_users_id_foreign` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `customer_flights`
+--
+ALTER TABLE `customer_flights`
+  ADD CONSTRAINT `customer_flights_customers_id_foreign` FOREIGN KEY (`customers_id`) REFERENCES `customers` (`id`);
+
+--
+-- Constraints for table `flight_seats`
+--
+ALTER TABLE `flight_seats`
+  ADD CONSTRAINT `flight_seats_customer_flights_id_foreign` FOREIGN KEY (`customer_flights_id`) REFERENCES `customer_flights` (`id`);
+
+--
+-- Constraints for table `package_items`
+--
+ALTER TABLE `package_items`
+  ADD CONSTRAINT `package_items_packages_id_foreign` FOREIGN KEY (`packages_id`) REFERENCES `packages` (`id`);
 
 --
 -- Constraints for table `staffs`

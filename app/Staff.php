@@ -13,6 +13,6 @@ class Staff extends Model
 
     public function user()
     {
-        return $this->hasOne(Staff::class, 'users_id', 'id');
+        return $this->hasOne(User::class, 'users_id', 'id');
     }
 }

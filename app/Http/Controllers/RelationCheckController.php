@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Customer;
+use App\CustomerFlight;
 use Illuminate\Http\Request;
 
 class RelationCheckController extends Controller
@@ -24,8 +26,26 @@ class RelationCheckController extends Controller
          *  Get Customer Data via Users
          * 
          */
-        $user = User::find(10);
-        dd($user->customer()->first());
+        // $user = User::find(10);
+        // dd($user->customer()->first());
+        // Users via customer
+        //   $customer = Customer::find(10);
+        //   dd($customer->user()->first());
+
+        /**
+         * 
+         * Get CustomerFlight data via customer
+         */
+
+        //  $customer = Customer::find(5);
+        //  dd($customer->customer_flight()->first());
+
+        /**
+         * 
+         * Customerflights with seats
+         */
+        // $customer_flight = CustomerFlight::find(4);
+        // dd($customer_flight->flight_seat()->first());
 
     }
 }
